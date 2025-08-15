@@ -89,7 +89,7 @@ class S_MLPMixerBlock(nn.Module):
         x = origin_input + y
         
         # Channel mixing
-        y = self.channel_mixer(x)
+        y,_ = self.channel_mixer(x)
         x = x + y
         return x
   
@@ -134,7 +134,7 @@ class M3Net(nn.Module):
         
         self.group = nn.Parameter(torch.randn(self.num_nodes, self.num_group))
 
-        self.time_series_emb_layer = nn.Linear(self.input_dim , self.embed_dim)
+        self.time_series_emb_layer = nn.Linear(self.input_dim*self.input_len , self.embed_dim)
      
         # encoding
         self.hidden_dim = self.embed_dim+self.node_dim * \
